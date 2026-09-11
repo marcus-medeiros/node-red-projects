@@ -1,0 +1,585 @@
+[
+    {
+        "id": "249c681cecbfe853",
+        "type": "tab",
+        "label": "Mapa-UFCG",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8ad9ae7b180592b4",
+        "type": "inject",
+        "z": "249c681cecbfe853",
+        "name": "Time",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 320,
+        "wires": [
+            [
+                "6177c7891e9c538c",
+                "5c4c033e436310a1",
+                "da97398bcf252bd8",
+                "eaad73b8184d1402",
+                "9f8dcfe316c51b86"
+            ]
+        ]
+    },
+    {
+        "id": "608016042939ee1d",
+        "type": "worldmap",
+        "z": "249c681cecbfe853",
+        "name": "MAPA",
+        "lat": "",
+        "lon": "",
+        "zoom": "17",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "true",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "DR",
+        "maplist": "OSMG,OSMC,EsriS,OpTop",
+        "mapname": "Dark Map",
+        "mapurl": "https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 750,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "de23dbd02fe0a261",
+        "type": "ui-template",
+        "z": "249c681cecbfe853",
+        "group": "427cf991aa81908c",
+        "page": "",
+        "ui": "",
+        "name": "Tamplate - Mapa",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<iframe \n    src=\"/worldmap\"\n    width=\"100%\"\n    height=\"500px\"\n    style=\"border:none;border-radius:10px;\">\n</iframe>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 930,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "930ceee776792d4a",
+        "type": "function",
+        "z": "249c681cecbfe853",
+        "name": "ENVIO DE PONTOS",
+        "func": "node.send({\n    payload: {\n        name: \"LAT\",\n        layer: \"MEDIDOR\",\n        lat: -7.213174,\n        lon: -35.909060,\n        icon: \"fa-bolt fa-4x\",\n        iconColor: \"green\",\n        popup: \"Corrente - 10 A (60%)\"\n    }\n});\n\nnode.send({\n    payload: {\n        name: \"CAA\",\n        layer: \"MEDIDOR\",\n        lat: -7.214204281971904,\n        lon: -35.90826405287206,\n        icon: \"fa-bolt fa-4x\",\n        iconColor: \"orange\",\n        popup: \"Corrente - 12 A (80%)\"\n    }\n});\n\nnode.send({\n    payload: {\n        name: \"EMBEDDED\",\n        layer: \"MEDIDOR\",\n        lat: -7.212345168856,\n        lon: -35.90811216945156,\n        icon: \"fa-bolt fa-4x\",\n        iconColor: \"red\",\n        popup: \"Corrente - 15 A (90%)\"\n    }\n});\n\nnode.send({\n    payload: {\n        name: \"LAT - FV\",\n        layer: \"FV\",\n        lat: -7.213348918903984,\n        lon: -35.90925065095659,\n        icon: \"fa-battery-full fa-2x\",\n        iconColor: \"orange\",\n        popup: \"GERAÇÃO - 15 kWh\"\n    }\n});\n\nnode.send({\n    payload: {\n        name: \"LEIAM - FV\",\n        layer: \"FV\",\n        lat: -7.212630530616113,\n        lon: -35.90828125119646,\n        icon: \"fa-battery-full fa-2x\",\n        iconColor: \"green\",\n        popup: \"GERAÇÃO - 120 kWh\"\n    }\n});\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 440,
+        "wires": [
+            [
+                "608016042939ee1d"
+            ]
+        ]
+    },
+    {
+        "id": "fb4601703995a032",
+        "type": "ui-template",
+        "z": "249c681cecbfe853",
+        "group": "427cf991aa81908c",
+        "page": "",
+        "ui": "",
+        "name": "Template Status - Mapa",
+        "order": 2,
+        "width": "3",
+        "height": "1",
+        "head": "",
+        "format": "<style>\n.status-card {\n  background: var(--nr-dashboard-groupBackgroundColor);\n  border-radius: 10px;\n  padding: 2px;\n}\n\n.status-row {\n  display: flex;\n  align-items: center;\n  padding: 8px;\n  border-radius: 6px;\n  margin-bottom: 6px;\n  font-size: 18px;\n}\n\n.status-icon {\n  width: 32px;\n  text-align: center;\n  font-size: 20px;\n}\n\n.status-text {\n  flex: 1;\n  padding-left: 8px;\n}\n\n.status-status {\n  font-weight: bold;\n  font-size: 18px;\n}\n\n.status-funcionando {\n  background: #e8f5e9;\n  color: #2e7d32;\n}\n\n.status-aguardando {\n  background: #fff8e1;\n  color: #f9a825;\n}\n\n.status-invalido {\n  background: #ffebee;\n  color: #c62828;\n}\n\n</style>\n",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 590,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "48a75bb96c8fa323",
+        "type": "ui-template",
+        "z": "249c681cecbfe853",
+        "group": "61cc2ab323e3201a",
+        "page": "",
+        "ui": "",
+        "name": "Status - LAT",
+        "order": 1,
+        "width": "4",
+        "height": "1",
+        "head": "",
+        "format": "<div class=\"status-card\">\n\n  <div v-if=\"msg.payload.estado === 'funcionando'\" class=\"status-row status-funcionando\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      NORMAL\n    </div>\n  </div>\n\n  <div v-if=\"msg.payload.estado === 'aguardando'\" class=\"status-row status-aguardando\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      ATENÇÃO\n    </div>\n  </div>\n\n  <div v-if=\"msg.payload.estado === 'invalido'\" class=\"status-row status-invalido\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      ALERTA\n    </div>\n  </div>\n</div>\n",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 690,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6177c7891e9c538c",
+        "type": "function",
+        "z": "249c681cecbfe853",
+        "name": "LAT",
+        "func": "// Lê o estado vindo da lógica (1, 2 ou 3)\nconst estadoSwitch = Number(1);\n\n\n// Estado padrão\nlet estado = \"invalido\";\n\nswitch (estadoSwitch) {\n    case 1:\n        estado = \"funcionando\";\n        break;\n\n    case 0:\n        estado = \"aguardando\";\n        break;\n\n    case -1:\n        estado = \"invalido\";\n        break;\n\n    default:\n        estado = \"invalido\";\n        break;\n}\n\n// Payload final para o Dashboard 2.0\nmsg.payload = {\n    estado: estado,\n    aplicacao: \"LAT\" \n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 140,
+        "wires": [
+            [
+                "48a75bb96c8fa323"
+            ]
+        ]
+    },
+    {
+        "id": "0fbc840086fa4159",
+        "type": "ui-template",
+        "z": "249c681cecbfe853",
+        "group": "61cc2ab323e3201a",
+        "page": "",
+        "ui": "",
+        "name": "Status - EMBEDDED",
+        "order": 4,
+        "width": "4",
+        "height": "1",
+        "head": "",
+        "format": "<div class=\"status-card\">\n\n  <div v-if=\"msg.payload.estado === 'funcionando'\" class=\"status-row status-funcionando\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      NORMAL\n    </div>\n  </div>\n\n  <div v-if=\"msg.payload.estado === 'aguardando'\" class=\"status-row status-aguardando\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      ATENÇÃO\n    </div>\n  </div>\n\n  <div v-if=\"msg.payload.estado === 'invalido'\" class=\"status-row status-invalido\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      ALERTA\n    </div>\n  </div>\n</div>\n",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 720,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "da97398bcf252bd8",
+        "type": "function",
+        "z": "249c681cecbfe853",
+        "name": "EMBEDDED",
+        "func": "// Lê o estado vindo da lógica (1, 2 ou 3)\nconst estadoSwitch = Number(-1);\n\n\n// Estado padrão\nlet estado = \"invalido\";\n\nswitch (estadoSwitch) {\n    case 1:\n        estado = \"funcionando\";\n        break;\n\n    case 0:\n        estado = \"aguardando\";\n        break;\n\n    case -1:\n        estado = \"invalido\";\n        break;\n\n    default:\n        estado = \"invalido\";\n        break;\n}\n\n// Payload final para o Dashboard 2.0\nmsg.payload = {\n    estado: estado,\n    aplicacao: \"EMBEDDED\" \n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 260,
+        "wires": [
+            [
+                "0fbc840086fa4159"
+            ]
+        ]
+    },
+    {
+        "id": "6e1aea7c23ecc952",
+        "type": "ui-template",
+        "z": "249c681cecbfe853",
+        "group": "61cc2ab323e3201a",
+        "page": "",
+        "ui": "",
+        "name": "Status - CAA",
+        "order": 5,
+        "width": "4",
+        "height": "1",
+        "head": "",
+        "format": "<div class=\"status-card\">\n\n  <div v-if=\"msg.payload.estado === 'funcionando'\" class=\"status-row status-funcionando\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      NORMAL\n    </div>\n  </div>\n\n  <div v-if=\"msg.payload.estado === 'aguardando'\" class=\"status-row status-aguardando\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      ATENÇÃO\n    </div>\n  </div>\n\n  <div v-if=\"msg.payload.estado === 'invalido'\" class=\"status-row status-invalido\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      ALERTA\n    </div>\n  </div>\n</div>\n",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 690,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5c4c033e436310a1",
+        "type": "function",
+        "z": "249c681cecbfe853",
+        "name": "CAA",
+        "func": "// Lê o estado vindo da lógica (1, 2 ou 3)\nconst estadoSwitch = Number(0);\n\n\n// Estado padrão\nlet estado = \"invalido\";\n\nswitch (estadoSwitch) {\n    case 1:\n        estado = \"funcionando\";\n        break;\n\n    case 0:\n        estado = \"aguardando\";\n        break;\n\n    case -1:\n        estado = \"invalido\";\n        break;\n\n    default:\n        estado = \"invalido\";\n        break;\n}\n\n// Payload final para o Dashboard 2.0\nmsg.payload = {\n    estado: estado,\n    aplicacao: \"CAA\" \n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 220,
+        "wires": [
+            [
+                "6e1aea7c23ecc952"
+            ]
+        ]
+    },
+    {
+        "id": "fc1b524b9a51443b",
+        "type": "ui-template",
+        "z": "249c681cecbfe853",
+        "group": "61cc2ab323e3201a",
+        "page": "",
+        "ui": "",
+        "name": "Status - FV LAT",
+        "order": 3,
+        "width": "4",
+        "height": "1",
+        "head": "",
+        "format": "<div class=\"status-card\">\n\n  <div v-if=\"msg.payload.estado === 'funcionando'\" class=\"status-row status-funcionando\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      NORMAL\n    </div>\n  </div>\n\n  <div v-if=\"msg.payload.estado === 'aguardando'\" class=\"status-row status-aguardando\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      ATENÇÃO\n    </div>\n  </div>\n\n  <div v-if=\"msg.payload.estado === 'invalido'\" class=\"status-row status-invalido\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      ALERTA\n    </div>\n  </div>\n</div>\n",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 700,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eaad73b8184d1402",
+        "type": "function",
+        "z": "249c681cecbfe853",
+        "name": "FV - LAT",
+        "func": "// Lê o estado vindo da lógica (1, 2 ou 3)\nconst estadoSwitch = Number(0);\n\n\n// Estado padrão\nlet estado = \"invalido\";\n\nswitch (estadoSwitch) {\n    case 1:\n        estado = \"funcionando\";\n        break;\n\n    case 0:\n        estado = \"aguardando\";\n        break;\n\n    case -1:\n        estado = \"invalido\";\n        break;\n\n    default:\n        estado = \"invalido\";\n        break;\n}\n\n// Payload final para o Dashboard 2.0\nmsg.payload = {\n    estado: estado,\n    aplicacao: \"GERAÇÃO FV - LAT\" \n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 300,
+        "wires": [
+            [
+                "fc1b524b9a51443b"
+            ]
+        ]
+    },
+    {
+        "id": "3ea823f5537a705e",
+        "type": "ui-template",
+        "z": "249c681cecbfe853",
+        "group": "cf15575c443f624c",
+        "page": "",
+        "ui": "",
+        "name": "Template Logo",
+        "order": 1,
+        "width": "4",
+        "height": "2",
+        "head": "",
+        "format": "<div style=\"text-align:center; padding:10px;\">\n    <img \n        src=\"https://www.cdsa.ufcg.edu.br/home/arq/logomarca/logo_atual/UFCG-lateral.png\"\n        style=\"height:80px;\"\n    >\n</div>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 220,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e174070725e04308",
+        "type": "ui-template",
+        "z": "249c681cecbfe853",
+        "group": "cf15575c443f624c",
+        "page": "",
+        "ui": "",
+        "name": "Template Data",
+        "order": 2,
+        "width": "8",
+        "height": "2",
+        "head": "",
+        "format": "<div style=\"\n    width:100%;\n    padding:15px;\n    background:#d1d5db;\n    border-radius:12px;\n    text-align:center;\n    font-family:Arial;\n\">\n\n    <div style=\"\n        font-size:18px;\n        font-weight:bold;\n        margin-bottom:10px;\n        color:#374151;\n    \">\n        DATA / HORA\n    </div>\n\n    <div id=\"relogio\" style=\"\n        font-size:28px;\n        color:black;\n        font-weight:bold;\n    \">\n        Carregando...\n    </div>\n\n</div>\n\n<script>\nsetInterval(function() {\n\n    const now = new Date();\n\n    const data =\n        now.toLocaleDateString('pt-BR');\n\n    const hora =\n        now.toLocaleTimeString('pt-BR');\n\n    document.getElementById(\"relogio\").innerHTML =\n        data + \" - \" + hora;\n\n}, 1000);\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 220,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "67c34aaa6000ad5c",
+        "type": "comment",
+        "z": "249c681cecbfe853",
+        "name": "Link - Icons",
+        "info": "https://fontawesome.com/v4/icons/?utm_source=chatgpt.com",
+        "x": 250,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "e6656b950370a8e2",
+        "type": "ui-template",
+        "z": "249c681cecbfe853",
+        "group": "61cc2ab323e3201a",
+        "page": "",
+        "ui": "",
+        "name": "Status - LEIAM",
+        "order": 2,
+        "width": "4",
+        "height": "1",
+        "head": "",
+        "format": "<div class=\"status-card\">\n\n  <div v-if=\"msg.payload.estado === 'funcionando'\" class=\"status-row status-funcionando\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      NORMAL\n    </div>\n  </div>\n\n  <div v-if=\"msg.payload.estado === 'aguardando'\" class=\"status-row status-aguardando\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      ATENÇÃO\n    </div>\n  </div>\n\n  <div v-if=\"msg.payload.estado === 'invalido'\" class=\"status-row status-invalido\">\n    <div class=\"status-icon\">\n      <span class=\"mdi mdi-flash\"></span>\n    </div>\n    <div class=\"status-text\">\n      {{ msg.payload.aplicacao }}\n    </div>\n    <div class=\"status-status\">\n      ALERTA\n    </div>\n  </div>\n</div>\n",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 700,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9f8dcfe316c51b86",
+        "type": "function",
+        "z": "249c681cecbfe853",
+        "name": "LEIAM",
+        "func": "// Lê o estado vindo da lógica (1, 2 ou 3)\nconst estadoSwitch = Number(1);\n\n\n// Estado padrão\nlet estado = \"invalido\";\n\nswitch (estadoSwitch) {\n    case 1:\n        estado = \"funcionando\";\n        break;\n\n    case 0:\n        estado = \"aguardando\";\n        break;\n\n    case -1:\n        estado = \"invalido\";\n        break;\n\n    default:\n        estado = \"invalido\";\n        break;\n}\n\n// Payload final para o Dashboard 2.0\nmsg.payload = {\n    estado: estado,\n    aplicacao: \"LEIAM\" \n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 180,
+        "wires": [
+            [
+                "e6656b950370a8e2"
+            ]
+        ]
+    },
+    {
+        "id": "790198a8b4fb8351",
+        "type": "inject",
+        "z": "249c681cecbfe853",
+        "name": "Time",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 440,
+        "wires": [
+            [
+                "930ceee776792d4a"
+            ]
+        ]
+    },
+    {
+        "id": "729110fe1d3349b3",
+        "type": "comment",
+        "z": "249c681cecbfe853",
+        "name": "Comando CloudFlare",
+        "info": "cloudflared.exe tunnel --url http://localhost:1880 ",
+        "x": 260,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "427cf991aa81908c",
+        "type": "ui-group",
+        "name": "Mapa_Group",
+        "page": "7cd46914711c0936",
+        "width": "8",
+        "height": 1,
+        "order": 3,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "61cc2ab323e3201a",
+        "type": "ui-group",
+        "name": "Mapa_STATUS",
+        "page": "7cd46914711c0936",
+        "width": "4",
+        "height": 1,
+        "order": 2,
+        "showTitle": false,
+        "className": "",
+        "visible": "false",
+        "disabled": "true",
+        "groupType": "default"
+    },
+    {
+        "id": "cf15575c443f624c",
+        "type": "ui-group",
+        "name": "Logo e Infos",
+        "page": "7cd46914711c0936",
+        "width": "12",
+        "height": 1,
+        "order": 1,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "7cd46914711c0936",
+        "type": "ui-page",
+        "name": "Supervisório UFCG",
+        "ui": "3cdf47edcfb07a21",
+        "path": "/mapa",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "0d92c765bfad87e6",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 6,
+        "className": "",
+        "visible": false,
+        "disabled": "false"
+    },
+    {
+        "id": "3cdf47edcfb07a21",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "fixed",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "0d92c765bfad87e6",
+        "type": "ui-theme",
+        "name": "Basic Blue Theme",
+        "colors": {
+            "surface": "#4d58ff",
+            "primary": "#0094ce",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "3041380c3a6fd707",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-web-worldmap": "5.7.0",
+            "@flowfuse/node-red-dashboard": "1.30.2"
+        }
+    }
+]
