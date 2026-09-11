@@ -1,0 +1,601 @@
+[
+    {
+        "id": "09dd6b86d99b744b",
+        "type": "tab",
+        "label": "MODBUS",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5a5a256902698856",
+        "type": "modbus-read",
+        "z": "09dd6b86d99b744b",
+        "name": "TESTE",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "0",
+        "quantity": "1",
+        "rate": "20",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "server": "41db34cd404bcc0a",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 730,
+        "y": 720,
+        "wires": [
+            [
+                "aa8dd98bce992935"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "aa8dd98bce992935",
+        "type": "debug",
+        "z": "09dd6b86d99b744b",
+        "name": "Leitura - 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "d3db1179ea8fad5c",
+        "type": "modbus-write",
+        "z": "09dd6b86d99b744b",
+        "name": "Escrita",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "0",
+        "quantity": "1",
+        "server": "41db34cd404bcc0a",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 730,
+        "y": 840,
+        "wires": [
+            [
+                "593a4b911629136b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "593a4b911629136b",
+        "type": "debug",
+        "z": "09dd6b86d99b744b",
+        "name": "Leitura - Endereço [0]",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "928d1c349a7963ac",
+        "type": "inject",
+        "z": "09dd6b86d99b744b",
+        "name": "Inserção de Dados",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 310,
+        "y": 840,
+        "wires": [
+            [
+                "a996231d55c7cc40"
+            ]
+        ]
+    },
+    {
+        "id": "a996231d55c7cc40",
+        "type": "function",
+        "z": "09dd6b86d99b744b",
+        "name": "Dados: v = 5",
+        "func": "msg.payload = 5;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 840,
+        "wires": [
+            [
+                "d3db1179ea8fad5c"
+            ]
+        ]
+    },
+    {
+        "id": "ef11af41dc16c2ce",
+        "type": "inject",
+        "z": "09dd6b86d99b744b",
+        "name": "Inserção de Dados",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 900,
+        "wires": [
+            [
+                "26e577539c89b1b7"
+            ]
+        ]
+    },
+    {
+        "id": "26e577539c89b1b7",
+        "type": "function",
+        "z": "09dd6b86d99b744b",
+        "name": "Dados: v = 10",
+        "func": "msg.payload = 10;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 900,
+        "wires": [
+            [
+                "d3db1179ea8fad5c"
+            ]
+        ]
+    },
+    {
+        "id": "43ad9640b337ac55",
+        "type": "inject",
+        "z": "09dd6b86d99b744b",
+        "name": "Inserção de Dados",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 780,
+        "wires": [
+            [
+                "7dc15e7ce5da8f3d"
+            ]
+        ]
+    },
+    {
+        "id": "7dc15e7ce5da8f3d",
+        "type": "function",
+        "z": "09dd6b86d99b744b",
+        "name": "Dados: v = 0",
+        "func": "msg.payload = 0;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 780,
+        "wires": [
+            [
+                "d3db1179ea8fad5c"
+            ]
+        ]
+    },
+    {
+        "id": "3201567f1a19437b",
+        "type": "modbus-server",
+        "z": "09dd6b86d99b744b",
+        "name": "MODBUS SERVER",
+        "logEnabled": true,
+        "hostname": "127.0.0.1",
+        "serverPort": "5020",
+        "responseDelay": 100,
+        "delayUnit": "ms",
+        "coilsBufferSize": "100",
+        "holdingBufferSize": "100",
+        "inputBufferSize": "100",
+        "discreteBufferSize": "100",
+        "showErrors": false,
+        "showStatusActivities": true,
+        "x": 730,
+        "y": 560,
+        "wires": [
+            [
+                "674a8b3243416e59"
+            ],
+            [],
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "674a8b3243416e59",
+        "type": "debug",
+        "z": "09dd6b86d99b744b",
+        "name": "HOLDING REGISTER",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "2c169c90a4476939",
+        "type": "inject",
+        "z": "09dd6b86d99b744b",
+        "name": "Timeout (manual)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 460,
+        "y": 440,
+        "wires": [
+            [
+                "3201567f1a19437b"
+            ]
+        ]
+    },
+    {
+        "id": "c76d1f8d3c85bc64",
+        "type": "inject",
+        "z": "09dd6b86d99b744b",
+        "name": "Inserção de Dados",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 560,
+        "wires": [
+            [
+                "d9d53a8aeb731086"
+            ]
+        ]
+    },
+    {
+        "id": "d9d53a8aeb731086",
+        "type": "function",
+        "z": "09dd6b86d99b744b",
+        "name": "Inicialização",
+        "func": "msg.payload = {\n    coils: Array(20).fill(false),\n    discrete: Array(20).fill(false),\n    input: Array(50).fill(0),\n    holding: Array(100).fill(0)\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 560,
+        "wires": [
+            [
+                "3201567f1a19437b"
+            ]
+        ]
+    },
+    {
+        "id": "26e544022cce256d",
+        "type": "modbus-write",
+        "z": "09dd6b86d99b744b",
+        "name": "Escrita",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "1",
+        "quantity": "1",
+        "server": "41db34cd404bcc0a",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 730,
+        "y": 1040,
+        "wires": [
+            [
+                "c6b4fcd257471258"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c6b4fcd257471258",
+        "type": "debug",
+        "z": "09dd6b86d99b744b",
+        "name": "Leitura - Endereço [1]",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "2698478254a35fb5",
+        "type": "inject",
+        "z": "09dd6b86d99b744b",
+        "name": "Inserção de Dados",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 310,
+        "y": 1040,
+        "wires": [
+            [
+                "d76bb0970da08124"
+            ]
+        ]
+    },
+    {
+        "id": "d76bb0970da08124",
+        "type": "function",
+        "z": "09dd6b86d99b744b",
+        "name": "Dados: v = 5",
+        "func": "msg.payload = 5;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 1040,
+        "wires": [
+            [
+                "26e544022cce256d"
+            ]
+        ]
+    },
+    {
+        "id": "adf703ba63d5a831",
+        "type": "inject",
+        "z": "09dd6b86d99b744b",
+        "name": "Inserção de Dados",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 1100,
+        "wires": [
+            [
+                "32e73eab084892ce"
+            ]
+        ]
+    },
+    {
+        "id": "32e73eab084892ce",
+        "type": "function",
+        "z": "09dd6b86d99b744b",
+        "name": "Dados: v = 10",
+        "func": "msg.payload = 10;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 1100,
+        "wires": [
+            [
+                "26e544022cce256d"
+            ]
+        ]
+    },
+    {
+        "id": "c9d3ecc0d5ed228f",
+        "type": "inject",
+        "z": "09dd6b86d99b744b",
+        "name": "Inserção de Dados",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 980,
+        "wires": [
+            [
+                "5cea38562df38eb1"
+            ]
+        ]
+    },
+    {
+        "id": "5cea38562df38eb1",
+        "type": "function",
+        "z": "09dd6b86d99b744b",
+        "name": "Dados: v = 0",
+        "func": "msg.payload = 0;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 980,
+        "wires": [
+            [
+                "26e544022cce256d"
+            ]
+        ]
+    },
+    {
+        "id": "41db34cd404bcc0a",
+        "type": "modbus-client",
+        "name": "Modbus Server Teste",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "127.0.0.1",
+        "tcpPort": "5020",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "99e3567d580877e9",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-modbus": "5.45.2"
+        }
+    }
+]
